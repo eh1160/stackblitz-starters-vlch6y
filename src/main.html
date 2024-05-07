@@ -3,4 +3,18 @@
     <div class="mt-4 mb-3">
         <app-time-input></app-time-input>
     </div>
+
+    <h2>Notes</h2>
+    <ol>
+        <li>
+            Uses <a href="https://moment.github.io/luxon/#/">luxon</a>'s DateTime
+            object.
+        </li>
+        <li>
+            Investigated using
+            <a href="https://angular.io/api/common/DatePipe#usage-example">Angular's Date pipe</a>. But that pipe only
+            operates on a Date object, Unix number, or
+            ISO-8601 string (with full date, time, time zone).
+        </li>
+    </ol>
 </div>
