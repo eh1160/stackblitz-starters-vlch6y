@@ -1,0 +1,14 @@
+<table class="table table-bordered table-hover table-sm">
+    <thead>
+        <tr>
+            <th>Zone</th>
+            <th>Resulting Date Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let zone of zones">
+            <td>{{ zone }}</td>
+            <td>{{ getLuxonForZone(zone) }} </td>
+        </tr>
+    </tbody>
+</table>
