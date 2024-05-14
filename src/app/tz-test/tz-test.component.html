@@ -1,3 +1,5 @@
+<div class="small">Sample Date: {{sampleDateTime | json}}</div>
+
 <table class="table table-bordered table-hover table-sm">
     <thead>
         <tr>
@@ -6,9 +8,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let zone of zones">
-            <td>{{ zone }}</td>
-            <td>{{ getLuxonForZone(zone) }} </td>
+        <tr *ngFor="let zone of getSortedZones()">
+            <td><span class="offset">(GMT{{ getOffset(zone) }})</span> {{ zone }}</td>
+            <td>{{ getLuxonForZone(zone) }}</td>
         </tr>
     </tbody>
 </table>
