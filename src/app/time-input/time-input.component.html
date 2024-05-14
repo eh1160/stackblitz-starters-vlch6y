@@ -1,6 +1,6 @@
 <input type="text" class="form-control" id="date-test"
   placeholder="Enter a time with/without seconds, 12 hr or 24 hr format" [ngClass]="{
-        'is-invalid': inputDateTime && !isValid,
+        'is-invalid': inputDateTime && isValid === false,
         'is-valid': isValid
       }" [ngModel]="inputDateTime" (ngModelChange)="validateTime($event)" />
 
@@ -8,6 +8,6 @@
     'invalid-feedback': inputDateTime && !isValid,
     'valid-feedback': isValid
   }">
-  {{ outputDateTime }}
-  {{ invalidExplanation }}
+  <!--span>{{ outputDateTime }}</span-->
+  <!--span>{{ invalidExplanation }}</span-->
 </span>
