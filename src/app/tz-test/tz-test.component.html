@@ -8,9 +8,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let zone of getSortedZones()">
-            <td><span class="offset">(GMT{{ getOffset(zone) }})</span> {{ zone }}</td>
-            <td>{{ getLuxonForZone(zone) }}</td>
+        <tr *ngFor="let zone of sortTimeZonesByOffset()">
+            <td>
+                <span class="offset">(GMT{{ getOffset(zone) }})</span> {{ zone }}<br>
+            </td>
+            <td>{{ getDateTimeForZone(zone) }}</td>
         </tr>
     </tbody>
 </table>

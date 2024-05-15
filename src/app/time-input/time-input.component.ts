@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { DateTime } from 'luxon';
+import moment from 'moment';
 
 @Component({
   selector: 'app-time-input',
@@ -12,12 +12,12 @@ import { DateTime } from 'luxon';
 })
 
 export class TimeInputComponent implements OnInit {
-  inputDateTime: string = '8:30:00 AM';
-  outputDateTime: string | null = null;
+  inputDateTime: string = '8:30';
+  outputDateTime: string | undefined = undefined;
   isValid: boolean | undefined = false;
 
-  // https://moment.github.io/luxon/#/formatting?id=table-of-tokens
-  validTimeFormats: Set<string> = new Set([
+  // moment token definitions: https://momentjs.com/docs/#/parsing/string-format/
+  validTimeFormatsNew: string[] = [
     'h:mm', // defaults to AM
     'h:mma', // includes AM/PM (no space)
     'h:mm a', // includes AM/PM (with space)
@@ -27,41 +27,28 @@ export class TimeInputComponent implements OnInit {
     'h:mm:ssa',
     'h:mm:ss a',
     'H:mm:ss',
-  ]);
 
-  invalidReason: string | null = null;
-  invalidExplanation: string | null = null;
+    //'H:mm:ss.SSS', // exactly 3 fractional seconds
+  ];
+
 
   validateTime(inputTime: string): void {
-    // Military time shouldn't accept AM/PM.  Why is it?  See https://github.com/moment/luxon/issues/1625
-    // console.log('*************', DateTime.fromFormat('18:30 AM', 'h:mm a').isValid);
-
     if (inputTime) {
-      for (const timeFormat of this.validTimeFormats) {
-        const givenDateTime: DateTime = DateTime.fromFormat(
-          inputTime.trim(),
-          timeFormat
-        );
+      // https://momentjs.com/docs/#/parsing/string-formats/
+      const momentObj = moment(inputTime.trim(), this.validTimeFormatsNew, true);
 
-        if (givenDateTime.isValid) {
-          this.outputDateTime = givenDateTime.toISOTime();
-          this.isValid = true;
-          this.invalidReason = null;
-          this.invalidExplanation = null;
-          break;
-        } else {
-          this.outputDateTime = null;
-          this.isValid = false;
-          this.invalidReason = givenDateTime.invalidReason;
-          this.invalidExplanation = givenDateTime.invalidExplanation;
-        }
+      // if (givenDateTime.isValid) {
+      if (momentObj.isValid()) {
+        this.outputDateTime = momentObj.format('h:mm:ss A');
+        this.isValid = true;
+      } else {
+        this.outputDateTime = undefined;
+        this.isValid = false;
       }
     } else {
       // empty input
-      this.outputDateTime = null;
+      this.outputDateTime = undefined;
       this.isValid = undefined;
-      this.invalidReason = null;
-      this.invalidExplanation = null;
     }
   }
 

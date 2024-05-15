@@ -4,10 +4,9 @@
         'is-valid': isValid
       }" [ngModel]="inputDateTime" (ngModelChange)="validateTime($event)" />
 
-<span *ngIf="outputDateTime || invalidExplanation" [ngClass]="{
+<span *ngIf="outputDateTime" [ngClass]="{
     'invalid-feedback': inputDateTime && !isValid,
     'valid-feedback': isValid
   }">
-  <!--span>{{ outputDateTime }}</span-->
-  <!--span>{{ invalidExplanation }}</span-->
+  <span>{{ outputDateTime }}</span>
 </span>
