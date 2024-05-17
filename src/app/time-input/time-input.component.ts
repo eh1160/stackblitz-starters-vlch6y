@@ -12,8 +12,9 @@ import moment from 'moment';
 })
 
 export class TimeInputComponent implements OnInit {
+  isoTimeFormat: string = 'HH:mm:ss.SSSZ';
   inputDateTime: string = '8:30';
-  outputDateTime: string | undefined = undefined;
+  outputDateTime: object | undefined = undefined;
   isValid: boolean | undefined = false;
 
   // moment token definitions: https://momentjs.com/docs/#/parsing/string-format/
@@ -39,7 +40,14 @@ export class TimeInputComponent implements OnInit {
 
       // if (givenDateTime.isValid) {
       if (momentObj.isValid()) {
-        this.outputDateTime = momentObj.format('h:mm:ss A');
+        // this.outputDateTime = momentObj.format('h:mm:ss A');
+        // this.outputDateTime = momentObj.toObject();
+        this.outputDateTime = {
+          hours: momentObj.toObject().hours,
+          minutes: momentObj.toObject().minutes,
+          seconds: momentObj.toObject().seconds,
+          isoTime: momentObj.utc().format(this.isoTimeFormat), // https://momentjs.com/docs/#/parsing/utc/
+        };
         this.isValid = true;
       } else {
         this.outputDateTime = undefined;
