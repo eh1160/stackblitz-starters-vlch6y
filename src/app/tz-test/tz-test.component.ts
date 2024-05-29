@@ -13,7 +13,7 @@ import moment from 'moment-timezone';
 export class TzTestComponent {
   sampleDateTime = {
     year: 2024,
-    month: 11,
+    month: 11,  // note that months are 0-11 (https://momentjs.com/docs/#/get-set/month/)
     day: 22,
     hour: 3,
     minute: 45,
