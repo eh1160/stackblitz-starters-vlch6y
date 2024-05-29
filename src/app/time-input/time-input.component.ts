@@ -12,7 +12,7 @@ import moment from 'moment';
 })
 
 export class TimeInputComponent implements OnInit {
-  isoTimeFormat: string = 'HH:mm:ss.SSSZ';
+  isoTimeFormat: string = 'HH:mm:ss.SSS';
   inputDateTime: string = '8:30';
   outputDateTime: object | undefined = undefined;
   isValid: boolean | undefined = false;
@@ -46,7 +46,8 @@ export class TimeInputComponent implements OnInit {
           hours: momentObj.toObject().hours,
           minutes: momentObj.toObject().minutes,
           seconds: momentObj.toObject().seconds,
-          isoTime: momentObj.utc().format(this.isoTimeFormat), // https://momentjs.com/docs/#/parsing/utc/
+          // isoTime: momentObj.utc().format(this.isoTimeFormat), // https://momentjs.com/docs/#/parsing/utc/   <<<< 2024-05-30 This approach is bad because it is influenced by Time Zone.  See next line instead.
+          isoTime: momentObj.format(this.isoTimeFormat), // https://momentjs.com/docs/#/displaying/format/
         };
         this.isValid = true;
       } else {
